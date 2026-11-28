@@ -25,7 +25,13 @@ async function loadMoods(){
 async function loadTracks(){
  const params=new URLSearchParams({q:$('search').value,genre:$('filterGenre').value,sort:$('sort').value,limit:50});
  const d=await api('/api/tracks?'+params);
- $('trackRows').innerHTML=d.tracks.map(t=>`<tr><td>${esc(t.track_name)}<span class="track-sub">${esc(t.album_name)}</span></td><td>${esc(t.artists)}</td><td>${esc(t.track_genre)}</td><td class="pop">${t.popularity}</td><td>${Number(t.energy).toFixed(2)}</td><td>${Number(t.danceability).toFixed(2)}</td></tr>`).join('')||'<tr><td colspan="6">No tracks found.</td></tr>';
+ $('trackRows').innerHTML=d.tracks.map(t=>{
+   const spotifyId=String(t.track_id??'').trim();
+   const trackName=spotifyId
+     ? `<a class="track-link" href="https://open.spotify.com/track/${encodeURIComponent(spotifyId)}" target="_blank" rel="noopener noreferrer" title="Open in Spotify">${esc(t.track_name)} <span aria-hidden="true">↗</span></a>`
+     : esc(t.track_name);
+   return `<tr><td>${trackName}<span class="track-sub">${esc(t.album_name)}</span></td><td>${esc(t.artists)}</td><td>${esc(t.track_genre)}</td><td class="pop">${t.popularity}</td><td>${Number(t.energy).toFixed(2)}</td><td>${Number(t.danceability).toFixed(2)}</td></tr>`;
+ }).join('')||'<tr><td colspan="6">No tracks found.</td></tr>';
 }
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 async function loadModels(){

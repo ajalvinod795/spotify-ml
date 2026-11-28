@@ -30,6 +30,10 @@ uvicorn app.main:app --reload
 
 Open http://127.0.0.1:8000. Interactive API docs: http://127.0.0.1:8000/docs.
 
+## Jupyter notebook
+
+Open `spotify_hit_mood_analysis.ipynb` in VS Code, select the Python environment where the project requirements are installed, and run the cells from top to bottom. The notebook explores the dataset, trains and evaluates the hit classifiers, and visualizes the mood clusters. Model training can take a few minutes.
+
 The first request that needs ML results trains the models and saves fitted estimators plus PCA/K-Means objects to `artifacts/trained_models.joblib`. The training sample is stratified and capped at 24,000 rows to keep first-run setup practical; the full dataset is used for dashboard statistics and track exploration. The PCA/K-Means projection uses up to 7,000 tracks.
 
 ## API
@@ -63,6 +67,7 @@ spotify-hit-mood-engine/
 │   ├── index.html
 │   ├── style.css
 │   └── app.js
+├── spotify_hit_mood_analysis.ipynb
 ├── tests/
 ├── requirements.txt
 └── README.md
