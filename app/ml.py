@@ -19,8 +19,8 @@ from sklearn.cluster import KMeans
 
 BASE = Path(__file__).resolve().parents[1]
 DATA_PATH = Path(os.getenv("SPOTIFY_DATA_PATH", BASE / "data" / "spotify_tracks.csv"))
-ARTIFACT_DIR = BASE / "artifacts"
-ARTIFACT_DIR.mkdir(exist_ok=True)
+ARTIFACT_DIR = Path("/tmp/spotify-hit-mood-engine-artifacts")
+ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 NUMERIC = ["danceability","energy","key","loudness","mode","speechiness","acousticness",
            "instrumentalness","liveness","valence","tempo","time_signature","duration_ms"]
 AUDIO = ["danceability","energy","speechiness","acousticness","instrumentalness","liveness","valence","tempo"]
